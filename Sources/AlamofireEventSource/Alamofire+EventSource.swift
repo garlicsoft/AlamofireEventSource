@@ -21,8 +21,8 @@ extension Session {
         }
     }
 
-    public func eventSourceRequest(_ convertible: URLConvertible, method: HTTPMethod = .get, parameters: Parameters?, headers: HTTPHeaders? = nil, lastEventID: String? = nil) -> DataStreamRequest {
-        return streamRequest(convertible, method: method, parameters: parameters, headers: headers) { request in
+    public func eventSourceRequest(_ convertible: URLConvertible, method: HTTPMethod = .get, parameters: [String: String], headers: HTTPHeaders? = nil, lastEventID: String? = nil) -> DataStreamRequest {
+        return streamRequest(convertible, method: method, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers) { request in
             request.timeoutInterval = TimeInterval(Int32.max)
             request.headers.add(name: "Accept", value: "text/event-stream")
             request.headers.add(name: "Cache-Control", value: "no-cache")
